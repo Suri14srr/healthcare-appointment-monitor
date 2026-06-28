@@ -1,0 +1,31 @@
+{
+  "notified_slots": {
+    "dr-akhil-krishnanand-bhat-general-surgeon:4fb19b76-283c-47cb-be64-615f42f471c7:2026-06-29:15:30:00": {
+      "booking_url": "https://www.superhealth.co.in/appointment/koramangala/doctors/dr-akhil-krishnanand-bhat-general-surgeon",
+      "date": "2026-06-29",
+      "day": "Monday",
+      "doctor_name": "Dr Akhil Krishnanand Bhat",
+      "notified_at": "2026-06-27T23:17:47.532873+05:30",
+      "slot_id": "4fb19b76-283c-47cb-be64-615f42f471c7",
+      "time": "3:30 PM"
+    },
+    "dr-akhil-krishnanand-bhat-general-surgeon:8aba21f3-57be-44ea-a68e-059d89f46df7:2026-06-29:15:15:00": {
+      "booking_url": "https://www.superhealth.co.in/appointment/koramangala/doctors/dr-akhil-krishnanand-bhat-general-surgeon",
+      "date": "2026-06-29",
+      "day": "Monday",
+      "doctor_name": "Dr Akhil Krishnanand Bhat",
+      "notified_at": "2026-06-27T23:17:46.839691+05:30",
+      "slot_id": "8aba21f3-57be-44ea-a68e-059d89f46df7",
+      "time": "3:15 PM"
+    },
+    "dr-akhil-krishnanand-bhat-general-surgeon:8b22da12-c02e-4e10-aa13-ef5ac8522647:2026-06-29:15:00:00": {
+      "booking_url": "https://www.superhealth.co.in/appointment/koramangala/doctors/dr-akhil-krishnanand-bhat-general-surgeon",
+      "date": "2026-06-29",
+      "day": "Monday",
+      "doctor_name": "Dr Akhil Krishnanand Bhat",
+      "notified_at": "2026-06-27T23:17:45.095948+05:30",
+      "slot_id": "8b22da12-c02e-4e10-aa13-ef5ac8522647",
+      "time": "3:00 PM"
+    }
+  }
+}
