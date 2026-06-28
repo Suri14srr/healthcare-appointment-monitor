@@ -37,6 +37,13 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DOCTOR_NAME: ${{ vars.DOCTOR_NAME }}
+          DOCTOR_SLUG: ${{ vars.DOCTOR_SLUG }}
+          APPOINTMENT_URL: ${{ vars.APPOINTMENT_URL }}
+          SLOT_DAYS: ${{ vars.SLOT_DAYS }}
+          SLOT_DATES: ${{ vars.SLOT_DATES }}
+          SLOT_START_TIME: ${{ vars.SLOT_START_TIME }}
+          SLOT_END_TIME: ${{ vars.SLOT_END_TIME }}
           RUN_ONCE: "true"
           DRY_RUN: "false"
           LOG_LEVEL: "INFO"

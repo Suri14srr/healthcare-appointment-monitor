@@ -50,6 +50,7 @@ class SuperhealthMonitor:
         matching_slots_found = 0
         notifications_sent = 0
         source = "http"
+        access_blocked = False
 
         try:
             html, source = self._fetch_html_with_fallback()
@@ -79,6 +80,18 @@ class SuperhealthMonitor:
 
         except AppointmentParseError as exc:
             LOGGER.error("parse_failed", error=str(exc), exc_info=True)
+        except WebsiteAccessBlocked as exc:
+            access_blocked = True
+            LOGGER.error(
+                "website_access_blocked",
+                error=str(exc),
+                source=source,
+                guidance=(
+                    "Superhealth blocked this runtime. GitHub-hosted runners may "
+                    "be blocked; use a self-hosted runner or run the monitor from "
+                    "a trusted network."
+                ),
+            )
         except RetryError as exc:
             LOGGER.error("fetch_retry_exhausted", error=str(exc), exc_info=True)
         except Exception as exc:
@@ -91,6 +104,7 @@ class SuperhealthMonitor:
             matching_slots_found,
             notifications_sent,
             source,
+            access_blocked,
         )
 
     def _fetch_html_with_fallback(self) -> tuple[str, str]:
@@ -126,8 +140,9 @@ class SuperhealthMonitor:
         source: str,
     ) -> tuple[list[AppointmentSlot], str]:
         if detect_anti_bot(html):
-            LOGGER.warning("anti_bot_detected", source=source)
-            return [], source
+            raise WebsiteAccessBlocked(
+                f"Anti-bot or CAPTCHA challenge detected from {source} response."
+            )
 
         try:
             return (
@@ -150,8 +165,9 @@ class SuperhealthMonitor:
             )
             playwright_html = self._fetch_playwright()
             if detect_anti_bot(playwright_html):
-                LOGGER.warning("anti_bot_detected", source="playwright")
-                return [], "playwright"
+                raise WebsiteAccessBlocked(
+                    "Anti-bot or CAPTCHA challenge detected from playwright response."
+                )
             return (
                 parse_slots_from_html(
                     playwright_html,
@@ -229,6 +245,7 @@ class SuperhealthMonitor:
         matching_slots_found: int,
         notifications_sent: int,
         source: str,
+        access_blocked: bool = False,
     ) -> MonitorResult:
         ended_at = datetime.now(IST)
         response_time_ms = int((time.perf_counter() - timer_start) * 1000)
@@ -241,6 +258,7 @@ class SuperhealthMonitor:
             notifications_sent=notifications_sent,
             response_time_ms=response_time_ms,
             source=source,
+            access_blocked=access_blocked,
         )
         return MonitorResult(
             slots_found=slots_found,
@@ -248,4 +266,9 @@ class SuperhealthMonitor:
             notifications_sent=notifications_sent,
             response_time_ms=response_time_ms,
             source=source,
+            access_blocked=access_blocked,
         )
+
+
+class WebsiteAccessBlocked(RuntimeError):
+    pass

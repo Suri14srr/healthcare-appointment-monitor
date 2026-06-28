@@ -35,3 +35,4 @@ class MonitorResult:
     notifications_sent: int
     response_time_ms: int
     source: str
+    access_blocked: bool = False
